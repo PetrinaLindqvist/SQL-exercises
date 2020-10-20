@@ -1,0 +1,113 @@
+1. SELECT name FROM Movies;
+2. SELECT name, year FROM Movies;
+3. SELECT name FROM Movies WHERE year=1940;
+4. SELECT name FROM Movies WHERE year<1950;
+5. SELECT name FROM Movies WHERE year>=1940 and year<=1950;
+6. SELECT name FROM Movies WHERE year<1950 or year>1980;
+7. SELECT name FROM Movies WHERE year!=1940;
+8. SELECT name FROM Movies ORDER BY name ASC;
+9. SELECT name FROM Movies ORDER BY name DESC;
+10. SELECT name, year FROM Movies ORDER BY year DESC, name ASC;
+11. SELECT DISTINCT forename FROM Names;
+12. SELECT DISTINCT forename,surname FROM Names;
+13. SELECT COUNT(*) FROM Employees;
+14. SELECT COUNT(*) FROM Employees WHERE salary>2000;
+15. SELECT SUM(salary) FROM Employees;
+16. SELECT MAX(salary) FROM Employees;
+17. SELECT COUNT (DISTINCT company) FROM Employees;
+18. SELECT company, COUNT(id) FROM Employees GROUP BY company;
+19. SELECT company, MAX(salary) FROM Employees GROUP BY company;
+20. SELECT company, MAX(salary) FROM Employees WHERE salary>=5000 GROUP BY company;61. SELECT Users.username, COUNT(Memberships.user_id) FROM Users LEFT JOIN Memberships ON Users.id=Memberships.user_id GROUP BY Users.id; 
+21. SELECT Players.name, Results.score  FROM Players, Results  WHERE players.id=player_id; 
+22. SELECT Players.name, Results.score  FROM Players, Results   WHERE players.id=player_id AND     name='Uolevi'; 
+23. SELECT Players.name, Results.score  FROM Players, Results WHERE players.id=player_id AND score>250; 
+24. SELECT Players.name, Results.score  FROM Players, Results   WHERE players.id=player_id ORDER BY score DESC, Name ASC; 
+25. SELECT Players.name, MAX (Results.score)  FROM Players, Results WHERE Players.id=Results.player_id GROUP BY Players.name; 
+26. SELECT Players.name, COUNT (player_id)   FROM Players, Results WHERE Players.id = Results.player_id GROUP BY Players.name; 
+27.  SELECT Students.name, Courses.name, Gradings.grade FROM Students, Courses, Gradings  WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id; 
+28. SELECT Courses.name, Gradings.grade  FROM Courses, Gradings  WHERE Courses.id = Gradings.course_id AND student_id = 1; 
+29. SELECT Students.name, Gradings.grade  FROM Students, Gradings, Courses WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id  AND Courses.id=1; 
+30. SELECT Students.name, Courses.name, Gradings.grade  FROM Students, Courses, Gradings WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id                                    AND Gradings.grade >=4; 
+31. SELECT Students.name, COUNT(Gradings.grade) FROM Students, Gradings, Courses WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id GROUP BY Students.name; 
+32. SELECT Students.name, MAX (Gradings.grade) FROM Students, Courses, Gradings WHERE Students.id = Gradings.Student_id AND Courses.id = Gradings.course_id GROUP BY Students.name; 
+33. SELECT A.name, B.name FROM Cities A , Cities B, Flights WHERE A.id = Flights.departure_id AND Flights.destination_id = B.id; 
+34. SELECT B.name FROM Cities A, Cities B, Flights WHERE A.id = Flights.departure_id AND B.id = Flights.destination_id AND A.name = 'Helsinki'; 
+35. SELECT Players.name, COUNT(Results.score) FROM Players LEFT JOIN Results ON Players.id = Results.player_id GROUP BY Players.name; 
+36. SELECT Students.name, COUNT(Gradings.grade) FROM Courses, Students LEFT JOIN Gradings ON Students.id = Gradings.student_id  AND Gradings.student_id = Courses.id  GROUP BY Students.name; 
+37. SELECT Courses.name, COUNT(Gradings.course_id) FROM Courses, Students LEFT JOIN Gradings ON Students.id = Gradings.student_id AND Gradings.course_id = Courses.id GROUP BY Courses.name; 
+38. SELECT Courses.name FROM Students LEFT JOIN Courses, Gradings ON Students.id = Gradings.student_id AND Gradings.course_id = Courses.id GROUP BY Courses.name; 
+39. SELECT Courses.name FROM Courses LEFT JOIN Gradings ON Gradings.Course_id = Courses.id  WHERE Gradings.Course_id IS NULL GROUP BY Courses.name; 
+40. SELECT Cities.name, COUNT(Flights.departure_id) FROM Cities LEFT JOIN Flights ON Cities.id = Flights.departure_id GROUP BY Cities.id;
+41. SELECT Products.name, price * 2 FROM Products; 
+42. SELECT name, price FROM Products WHERE price % 2 = 0; 
+43. SELECT Words.word, LENGTH (Words.word) FROM Words; 
+44. SELECT Words.word FROM Words WHERE LENGTH(Words.word) < 6; 
+45. SELECT word FROM Words ORDER BY LENGTH(word), word ASC; 
+46. SELECT forename||" "||surname FROM Users; 
+47. SELECT SUM(LENGTH (word))FROM Words; 
+48. SELECT product, (price * amount) FROM Orders; 
+49. SELECT SUM(price * amount) FROM Orders; 
+50. SELECT name FROM Movies WHERE year%4 = 0 AND year%100 <> 0 OR year%400 = 0; 
+51. SELECT name FROM Products WHERE price = (SELECT MIN(price) FROM Products); 
+52. SELECT name FROM Products WHERE price <= 2* (SELECT MIN(price) FROM Products); 
+53. SELECT name FROM Products WHERE price IN (SELECT DISTINCT(price) FROM Products GROUP           BY price  HAVING count()=1); 
+54. SELECT MIN(word) FROM Words; 
+55. SELECT word FROM Words ORDER BY word ASC LIMIT 1 OFFSET 1; 
+56. SELECT word FROM Words ORDER BY word ASC LIMIT -1 OFFSET 1; 
+57. SELECT word FROM Words WHERE word LIKE '%i%'; 
+58. SELECT word FROM Words WHERE word LIKE 'a%'; 
+59. SELECT word FROM Words WHERE LENGTH(word)=5 AND word LIKE '_p%'; 
+60. SELECT word FROM Words WHERE word LIKE '%a%a%' AND word NOT LIKE '%a%a%a%'; 
+61. SELECT Users.username, COUNT(Memberships.user_id) FROM Users LEFT JOIN Memberships ON Users.id=Memberships.user_id GROUP BY Users.id; 
+62. SELECT Groups.name, COUNT(Memberships.group_id) FROM Groups LEFT JOIN Memberships ON Groups.id=Memberships.group_id GROUP BY Groups.name; 
+63. SELECT Users.username FROM Users, Groups LEFT JOIN Memberships ON Users.id=Memberships.user_id AND Memberships.group_id=Groups.id GROUP BY Users.username HAVING COUNT(DISTINCT Memberships.group_id) >= 2; 
+64. 
+65. 
+66. SELECT Words.word FROM Words ORDER BY LOWER (word); 
+67. SELECT Products.name, Products.price FROM Products WHERE Products.price=(SELECT MIN(price) FROM (Products)) ORDER BY name ASC LIMIT 1; 
+68. 
+69. 
+70. SELECT MIN(ABS(A.price - B.price)) FROM Products A, Products B WHERE A.id IS NOT B.id; 
+71. SELECT Accounts.owner, COALESCE(SUM(Transactions.change),0) FROM Accounts LEFT JOIN Transactions ON Accounts.id=Transactions.account_id GROUP BY Accounts.owner; 
+72. SELECT SUM(Transactions.change) OVER(ORDER BY Transactions.id) FROM Transactions LEFT JOIN Accounts WHERE Accounts.id=Transactions.account_id AND Accounts.owner= 'Uolevi' ORDER BY Accounts.id; 
+73.  
+74. SELECT Students.name, COUNT(DISTINCT transmissions.exercise_id) FROM Students, Exercises LEFT JOIN Transmissions ON Students.id=Transmissions.student_id AND Exercises.id=Transmissions.exercise_id AND Transmissions.state = 1 GROUP BY Students.id; 
+75. 
+76. SELECT score FROM Results GROUP BY score ORDER BY Count(*) DESC, score LIMIT 1; 
+77.  
+78. 
+79. SELECT Carts.name, COUNT(Carts.seats - Passengers.cart_id) FROM Carts LEFT JOIN passengers ON Carts.id=Passengers.cart_id GROUP BY Carts.name; 
+80. SELECT Carts.name, Carts.seats - COUNT(passengers.cart_id) FROM Carts LEFT JOIN Passengers ON Carts.id=Passengers.cart_id GROUP BY Carts.name; 
+81. 
+82. 
+83. SELECT Passengers.name FROM Passengers, Carts WHERE Carts.id=Passengers.cart_id GROUP BY Passengers.cart_id HAVING COUNT(Passengers.cart_id) = 1; 
+84. SELECT Carts.name FROM Carts LEFT JOIN Passengers ON Carts.id=Passengers.cart_id GROUP BY Carts.id HAVING COUNT(Passengers.cart_id) = 0; 
+85. 
+86.  
+87. SELECT Packets.name, Packets.price, COALESCE(SUM(Products.price),0), COALESCE(SUM(Products.price),0) - Packets.price FROM Packets LEFT JOIN Contents ON Packets.id = Contents.packet_id LEFT JOIN Products ON Products.id = Contents.product_id GROUP BY Packets.id; 
+88. SELECT Products.name, COUNT(DISTINCT Contents.packet_id) FROM Products LEFT JOIN Contents ON Products.id = Contents.product_id LEFT JOIN Packets ON Packets.id = Contents.packet_id GROUP BY Products.id; 
+89. 
+90. SELECT RANK() OVER(ORDER BY Results.score DESC, Players.name) As RANK, Players.name, MAX(Results.score) FROM Players, Results WHERE Players.id = Results.player_id GROUP BY Players.id ORDER BY Players.name; 
+91. SELECT RANK() OVER(ORDER BY Results.score DESC), Players.name, MAX(Results.score) FROM Players, Results WHERE Players.id = Results.player_id GROUP BY Players.id ORDER BY Results.score DESC, Players.name; 
+92. 
+93. 
+94. 
+95. 
+96. 
+97. 
+98. 
+99. 
+100.
+
+
+
+
+
+ 
+
+ 
+
+ 
+
+
+
