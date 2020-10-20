@@ -27,7 +27,7 @@
 27.  SELECT Students.name, Courses.name, Gradings.grade FROM Students, Courses, Gradings  WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id; 
 28. SELECT Courses.name, Gradings.grade  FROM Courses, Gradings  WHERE Courses.id = Gradings.course_id AND student_id = 1; 
 29. SELECT Students.name, Gradings.grade  FROM Students, Gradings, Courses WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id  AND Courses.id=1; 
-30. SELECT Students.name, Courses.name, Gradings.grade  FROM Students, Courses, Gradings WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id                                    AND Gradings.grade >=4; 
+30. SELECT Students.name, Courses.name, Gradings.grade  FROM Students, Courses, Gradings WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id AND Gradings.grade >=4; 
 31. SELECT Students.name, COUNT(Gradings.grade) FROM Students, Gradings, Courses WHERE Students.id = Gradings.student_id AND Courses.id = Gradings.course_id GROUP BY Students.name; 
 32. SELECT Students.name, MAX (Gradings.grade) FROM Students, Courses, Gradings WHERE Students.id = Gradings.Student_id AND Courses.id = Gradings.course_id GROUP BY Students.name; 
 33. SELECT A.name, B.name FROM Cities A , Cities B, Flights WHERE A.id = Flights.departure_id AND Flights.destination_id = B.id; 
@@ -50,7 +50,7 @@
 50. SELECT name FROM Movies WHERE year%4 = 0 AND year%100 <> 0 OR year%400 = 0; 
 51. SELECT name FROM Products WHERE price = (SELECT MIN(price) FROM Products); 
 52. SELECT name FROM Products WHERE price <= 2* (SELECT MIN(price) FROM Products); 
-53. SELECT name FROM Products WHERE price IN (SELECT DISTINCT(price) FROM Products GROUP           BY price  HAVING count()=1); 
+53. SELECT name FROM Products WHERE price IN (SELECT DISTINCT(price) FROM Products GROUP BY price HAVING count()=1); 
 54. SELECT MIN(word) FROM Words; 
 55. SELECT word FROM Words ORDER BY word ASC LIMIT 1 OFFSET 1; 
 56. SELECT word FROM Words ORDER BY word ASC LIMIT -1 OFFSET 1; 
